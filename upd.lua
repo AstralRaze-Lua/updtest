@@ -1,5 +1,5 @@
-autoupdate("тут ссылка на ваш json", '[' .. string.upper(thisScript().name) .. ']: ',
-    "тут ссылка на ваш сайт/url вашего скрипта на форуме (если нет, оставьте как в json)")
+autoupdate("https://raw.githubusercontent.com/AstralRaze-Lua/updtest/refs/heads/main/upd.json", '[' .. string.upper(thisScript().name) .. ']: ',
+    "https://raw.githubusercontent.com/AstralRaze-Lua/updtest/refs/heads/main/upd.json")
 
 --
 --     _   _   _ _____ ___  _   _ ____  ____    _  _____ _____   ______   __   ___  ____  _     _  __
