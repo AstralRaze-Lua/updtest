@@ -10,7 +10,7 @@ local script_vers_text = "v1.0" -- Íàçâàíèå íàøåé âåðñèè. Â 
 local update_url = 'https://raw.githubusercontent.com/AstralRaze-Lua/updtest/refs/heads/main/update.ini' -- Ïóòü ê ini ôàéëó. Ïîçæå íàì ïîíàäîáèòüñÿ.
 local update_path = getWorkingDirectory() .. "/update.ini"
 
-local script_url = 'https://github.com/AstralRaze-Lua/updtest/blob/main/upd.lua' -- Ïóòü ñêðèïòó.
+local script_url = 'https://raw.githubusercontent.com/AstralRaze-Lua/updtest/refs/heads/main/upd.lua' -- Ïóòü ñêðèïòó.
 local script_path = thisScript().path
 
 function check_update() -- Ñîçäà¸ì ôóíêöèþ êîòîðàÿ áóäåò ïðîâåðÿòü íàëè÷èå îáíîâëåíèé ïðè çàïóñêå ñêðèïòà.
