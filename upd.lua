@@ -2,16 +2,16 @@ local dlstatus = require('moonloader').download_status
 local inicfg = require('inicfg')
 local imgui = require('mimgui')
 
-update_state = false -- Åñëè ïåðåìåííàÿ == true, çíà÷èò íà÷í¸òñÿ îáíîâëåíèå.
-update_found = false -- Åñëè áóäåò true, áóäåò äîñòóïíà êîìàíäà /update.
+update_state = false -- Ã…Ã±Ã«Ã¨ Ã¯Ã¥Ã°Ã¥Ã¬Ã¥Ã­Ã­Ã Ã¿ == true, Ã§Ã­Ã Ã·Ã¨Ã² Ã­Ã Ã·Ã­Â¸Ã²Ã±Ã¿ Ã®Ã¡Ã­Ã®Ã¢Ã«Ã¥Ã­Ã¨Ã¥.
+update_found = false -- Ã…Ã±Ã«Ã¨ Ã¡Ã³Ã¤Ã¥Ã² true, Ã¡Ã³Ã¤Ã¥Ã² Ã¤Ã®Ã±Ã²Ã³Ã¯Ã­Ã  ÃªÃ®Ã¬Ã Ã­Ã¤Ã  /update.
 
 local script_vers = 1.0
-local script_vers_text = "v1.0" -- Íàçâàíèå íàøåé âåðñèè. Â áóäóùåì áóäåì å¸ âûâîäèòü ïîëçîâàòåëþ.
+local script_vers_text = "v1.0" -- ÃÃ Ã§Ã¢Ã Ã­Ã¨Ã¥ Ã­Ã Ã¸Ã¥Ã© Ã¢Ã¥Ã°Ã±Ã¨Ã¨. Ã‚ Ã¡Ã³Ã¤Ã³Ã¹Ã¥Ã¬ Ã¡Ã³Ã¤Ã¥Ã¬ Ã¥Â¸ Ã¢Ã»Ã¢Ã®Ã¤Ã¨Ã²Ã¼ Ã¯Ã®Ã«Ã§Ã®Ã¢Ã Ã²Ã¥Ã«Ã¾.
 
-local update_url = 'https://raw.githubusercontent.com/AstralRaze-Lua/updtest/refs/heads/main/update.ini' -- Ïóòü ê ini ôàéëó. Ïîçæå íàì ïîíàäîáèòüñÿ.
+local update_url = 'https://raw.githubusercontent.com/AstralRaze-Lua/updtest/refs/heads/main/update.ini' -- ÃÃ³Ã²Ã¼ Ãª ini Ã´Ã Ã©Ã«Ã³. ÃÃ®Ã§Ã¦Ã¥ Ã­Ã Ã¬ Ã¯Ã®Ã­Ã Ã¤Ã®Ã¡Ã¨Ã²Ã¼Ã±Ã¿.
 local update_path = getWorkingDirectory() .. "/update.ini"
 
-local script_url = 'https://raw.githubusercontent.com/AstralRaze-Lua/updtest/refs/heads/main/upd.lua' -- Ïóòü ñêðèïòó.
+local script_url = 'https://raw.githubusercontent.com/AstralRaze-Lua/updtest/refs/heads/main/upd.lua' -- ÃÃ³Ã²Ã¼ Ã±ÃªÃ°Ã¨Ã¯Ã²Ã³.
 local script_path = thisScript().path
 
 local window = imgui.new.bool(true)
@@ -20,15 +20,19 @@ function main()
     if not isSampLoaded() or not isSampfuncsLoaded() then return end
     while not isSampAvailable() do wait(100) end
 
+        sampRegisterChatCommand('hi', function ()
+        sampAddChatMessage('hi', -1)
+        end)
+
     check_update()
 
     while true do
         wait(0)
   
-        if update_state then -- Åñëè ÷åëîâåê íàïèøåò /update è îáíîâëåíè åñòü, íà÷í¸òñÿ ñêàà÷èâàíèå ñêðèïòà.
+        if update_state then -- Ã…Ã±Ã«Ã¨ Ã·Ã¥Ã«Ã®Ã¢Ã¥Ãª Ã­Ã Ã¯Ã¨Ã¸Ã¥Ã² /update Ã¨ Ã®Ã¡Ã­Ã®Ã¢Ã«Ã¥Ã­Ã¨ Ã¥Ã±Ã²Ã¼, Ã­Ã Ã·Ã­Â¸Ã²Ã±Ã¿ Ã±ÃªÃ Ã Ã·Ã¨Ã¢Ã Ã­Ã¨Ã¥ Ã±ÃªÃ°Ã¨Ã¯Ã²Ã .
             downloadUrlToFile(script_url, script_path, function(id, status)
                 if status == dlstatus.STATUS_ENDDOWNLOADDATA then
-                    sampAddChatMessage("{FFFFFF}Ñêðèïò {32CD32}óñïåøíî {FFFFFF}îáíîâë¸í.", 0xFF0000)
+                    sampAddChatMessage("{FFFFFF}Ã‘ÃªÃ°Ã¨Ã¯Ã² {32CD32}Ã³Ã±Ã¯Ã¥Ã¸Ã­Ã® {FFFFFF}Ã®Ã¡Ã­Ã®Ã¢Ã«Â¸Ã­.", 0xFF0000)
                 end
             end)
             break
@@ -48,13 +52,13 @@ imgui.OnFrame(function() return window[0] end, function(player)
     end
     imgui.End()
 end)
-function check_update() -- Ñîçäà¸ì ôóíêöèþ êîòîðàÿ áóäåò ïðîâåðÿòü íàëè÷èå îáíîâëåíèé ïðè çàïóñêå ñêðèïòà.
+function check_update() -- Ã‘Ã®Ã§Ã¤Ã Â¸Ã¬ Ã´Ã³Ã­ÃªÃ¶Ã¨Ã¾ ÃªÃ®Ã²Ã®Ã°Ã Ã¿ Ã¡Ã³Ã¤Ã¥Ã² Ã¯Ã°Ã®Ã¢Ã¥Ã°Ã¿Ã²Ã¼ Ã­Ã Ã«Ã¨Ã·Ã¨Ã¥ Ã®Ã¡Ã­Ã®Ã¢Ã«Ã¥Ã­Ã¨Ã© Ã¯Ã°Ã¨ Ã§Ã Ã¯Ã³Ã±ÃªÃ¥ Ã±ÃªÃ°Ã¨Ã¯Ã²Ã .
     downloadUrlToFile(update_url, update_path, function(id, status)
         if status == dlstatus.STATUS_ENDDOWNLOADDATA then
             updateIni = inicfg.load(nil, update_path)
-            if tonumber(updateIni.info.vers) > script_vers then -- Ñâåðÿåì âåðñèþ â ñêðèïòå è â ini ôàéëå íà github
-                sampAddChatMessage("{FFFFFF}Èìååòñÿ {32CD32}íîâàÿ {FFFFFF}âåðñèÿ ñêðèïòà. Âåðñèÿ: {32CD32}"..updateIni.info.vers_text..". {FFFFFF}/update ÷òî-áû îáíîâèòü", 0xFF0000) -- Ñîîáùàåì î íîâîé âåðñèè.
-                update_found = true -- åñëè îáíîâëåíèå íàéäåíî, ñòàâèì ïåðåìåííîé çíà÷åíèå true
+            if tonumber(updateIni.info.vers) > script_vers then -- Ã‘Ã¢Ã¥Ã°Ã¿Ã¥Ã¬ Ã¢Ã¥Ã°Ã±Ã¨Ã¾ Ã¢ Ã±ÃªÃ°Ã¨Ã¯Ã²Ã¥ Ã¨ Ã¢ ini Ã´Ã Ã©Ã«Ã¥ Ã­Ã  github
+                sampAddChatMessage("{FFFFFF}ÃˆÃ¬Ã¥Ã¥Ã²Ã±Ã¿ {32CD32}Ã­Ã®Ã¢Ã Ã¿ {FFFFFF}Ã¢Ã¥Ã°Ã±Ã¨Ã¿ Ã±ÃªÃ°Ã¨Ã¯Ã²Ã . Ã‚Ã¥Ã°Ã±Ã¨Ã¿: {32CD32}"..updateIni.info.vers_text..". {FFFFFF}/update Ã·Ã²Ã®-Ã¡Ã» Ã®Ã¡Ã­Ã®Ã¢Ã¨Ã²Ã¼", 0xFF0000) -- Ã‘Ã®Ã®Ã¡Ã¹Ã Ã¥Ã¬ Ã® Ã­Ã®Ã¢Ã®Ã© Ã¢Ã¥Ã°Ã±Ã¨Ã¨.
+                update_found = true -- Ã¥Ã±Ã«Ã¨ Ã®Ã¡Ã­Ã®Ã¢Ã«Ã¥Ã­Ã¨Ã¥ Ã­Ã Ã©Ã¤Ã¥Ã­Ã®, Ã±Ã²Ã Ã¢Ã¨Ã¬ Ã¯Ã¥Ã°Ã¥Ã¬Ã¥Ã­Ã­Ã®Ã© Ã§Ã­Ã Ã·Ã¥Ã­Ã¨Ã¥ true
             end
             os.remove(update_path)
         end
