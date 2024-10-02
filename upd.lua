@@ -55,6 +55,9 @@ imgui.OnFrame(function() return upd[0] end, function(player)
         if imgui.Button('Download') then
             update_state = true
         end
+            if imgui.Button('test') then
+                sampAddChatMessage('-1', -1)
+            end
     end
     imgui.End()
 end)
