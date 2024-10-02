@@ -38,7 +38,7 @@ function main()
     end)
 
     if update_found then -- Если найдено обновление, регистрируем команду /update.
-        sampRegisterChatCommand('update', function()  -- Если пользователь напишет команду, начнётся обновление.
+        sampRegisterChatCommand('upd', function()  -- Если пользователь напишет команду, начнётся обновление.
             update_state = true -- Если человек пропишет /update, скрипт обновится.
         end)
     else
