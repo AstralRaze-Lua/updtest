@@ -1,4 +1,5 @@
 local dlstatus = require('moonloader').download_status
+local inicfg = require('inicfg')
 
 update_state = false -- Если переменная == true, значит начнётся обновление.
 update_found = false -- Если будет true, будет доступна команда /update.
