@@ -39,7 +39,7 @@ function main()
         if update_state then
             downloadUrlToFile(script_url, script_path, function(id, status)
                 if status == dlstatus.STATUS_ENDDOWNLOADDATA then
-                    sampAddChatMessage("{FFFFFF}Îáíîâà!! {32CD32}Áëÿ {FFFFFF}×å.", 0xFF0000)
+                    sampAddChatMessage("{FFFFFF}asdasdasd.", 0xFF0000)
                 end
             end)
             break
@@ -64,7 +64,7 @@ function check_update()
         if status == dlstatus.STATUS_ENDDOWNLOADDATA then
             updateIni = inicfg.load(nil, file)
             if tonumber(updateIni.info.vers) > script_vers then 
-                sampAddChatMessage("{FFFFFF}Îáíîâà {32CD32}Íàâåðí {FFFFFF}×å òóò íàïèñàíî åïò: {32CD32}"..updateIni.info.vers_text..". {FFFFFF}/update Äà-äà", 0xFF0000) -- ???????? ? ????? ??????.
+                sampAddChatMessage("{FFFFFF}asdasdas: {32CD32}"..updateIni.info.vers_text..". {FFFFFF}/update asda", 0xFF0000) -- ???????? ? ????? ??????.
                 update_found = true
             end
             os.remove(file)
