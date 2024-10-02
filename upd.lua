@@ -1,5 +1,6 @@
 local dlstatus = require('moonloader').download_status
 local inicfg = require('inicfg')
+local imgui = require('mimgui')
 
 update_state = false -- Если переменная == true, значит начнётся обновление.
 update_found = false -- Если будет true, будет доступна команда /update.
@@ -13,19 +14,13 @@ local update_path = getWorkingDirectory() .. "/update.ini"
 local script_url = 'https://raw.githubusercontent.com/AstralRaze-Lua/updtest/refs/heads/main/upd.lua' -- Путь скрипту.
 local script_path = thisScript().path
 
+local window = imgui.new.bool(true)
+
 function main()
     if not isSampLoaded() or not isSampfuncsLoaded() then return end
     while not isSampAvailable() do wait(100) end
 
     check_update()
-
-    if update_found then -- Если найдено обновление, регистрируем команду /update.
-        sampRegisterChatCommand('update', function()  -- Если пользователь напишет команду, начнётся обновление.
-            update_state = true -- Если человек пропишет /update, скрипт обновится.
-        end)
-    else
-        sampAddChatMessage('{FFFFFF}Нету доступных обновлений!')
-    end
 
     while true do
         wait(0)
@@ -42,6 +37,17 @@ function main()
     end 
 end
 
+imgui.OnFrame(function() return window[0] end, function(player)
+    imgui.SetNextWindowPos(imgui.ImVec2(500, 500), imgui.Cond.FirstUseEver, imgui.ImVec2(0.5, 0.5))
+    imgui.SetNextWindowSize(imgui.ImVec2(245, 270), imgui.Cond.Always)
+    imgui.Begin('##window', window, imgui.WindowFlags.NoResize)
+    if update_found then
+        if imgui.Button('Download') then
+            update_state = true
+        end
+    end
+    imgui.End()
+end)
 function check_update() -- Создаём функцию которая будет проверять наличие обновлений при запуске скрипта.
     downloadUrlToFile(update_url, update_path, function(id, status)
         if status == dlstatus.STATUS_ENDDOWNLOADDATA then
