@@ -9,7 +9,7 @@ local script_vers_text = "v1.0" -- Название нашей версии. В будущем будем её выв
 local update_url = 'https://raw.githubusercontent.com/AstralRaze-Lua/updtest/refs/heads/main/update.ini' -- Путь к ini файлу. Позже нам понадобиться.
 local update_path = getWorkingDirectory() .. "/update.ini"
 
-local script_url = '' -- Путь скрипту.
+local script_url = 'https://github.com/AstralRaze-Lua/updtest/blob/main/updcheck.lua' -- Путь скрипту.
 local script_path = thisScript().path
 
 
@@ -31,6 +31,10 @@ function main()
     while not isSampAvailable() do wait(100) end
 
     check_update()
+
+    sampRegisterChatCommand('ky', function ()
+        sampAddChatMessage('ky', -1)
+    end)
 
     if update_found then -- Если найдено обновление, регистрируем команду /update.
         sampRegisterChatCommand('update', function()  -- Если пользователь напишет команду, начнётся обновление.
