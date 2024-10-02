@@ -26,6 +26,9 @@ function main()
     while not isSampAvailable() do wait(100) end
 
     check_update()
+    sampRegisterChatCommand('emm', function()
+                sampAddChatMessage('ti bot', -1)
+        end)
 
     sampRegisterChatCommand('checkupd', function ()
         upd[0] = not upd[0]
@@ -36,7 +39,7 @@ function main()
         if update_state then
             downloadUrlToFile(script_url, script_path, function(id, status)
                 if status == dlstatus.STATUS_ENDDOWNLOADDATA then
-                    sampAddChatMessage("{FFFFFF}Обнова!! {32CD32}Бля {FFFFFF}Че.", 0xFF0000)
+                    sampAddChatMessage("{FFFFFF}ГЋГЎГ­Г®ГўГ !! {32CD32}ГЃГ«Гї {FFFFFF}Г—ГҐ.", 0xFF0000)
                 end
             end)
             break
@@ -61,7 +64,7 @@ function check_update()
         if status == dlstatus.STATUS_ENDDOWNLOADDATA then
             updateIni = inicfg.load(nil, file)
             if tonumber(updateIni.info.vers) > script_vers then 
-                sampAddChatMessage("{FFFFFF}Обнова {32CD32}Наверн {FFFFFF}Че тут написано епт: {32CD32}"..updateIni.info.vers_text..". {FFFFFF}/update Да-да", 0xFF0000) -- ???????? ? ????? ??????.
+                sampAddChatMessage("{FFFFFF}ГЋГЎГ­Г®ГўГ  {32CD32}ГЌГ ГўГҐГ°Г­ {FFFFFF}Г—ГҐ ГІГіГІ Г­Г ГЇГЁГ±Г Г­Г® ГҐГЇГІ: {32CD32}"..updateIni.info.vers_text..". {FFFFFF}/update Г„Г -Г¤Г ", 0xFF0000) -- ???????? ? ????? ??????.
                 update_found = true
             end
             os.remove(file)
