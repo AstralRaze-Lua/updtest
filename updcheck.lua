@@ -2,7 +2,7 @@ local dlstatus = require('moonloader').download_status
 local inicfg = require('inicfg')
 
 update_state = false -- Если переменная == true, значит начнётся обновление.
-update_found = false -- Если будет true, будет доступна команда /update.
+update_found = true -- Если будет true, будет доступна команда /update.
 
 local script_vers = 1.0
 local script_vers_text = "v1.0" -- Название нашей версии. В будущем будем её выводить ползователю.
